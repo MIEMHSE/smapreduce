@@ -8,10 +8,12 @@
     (println "Command:" command "for Arguments:" args)
     (case command
       "map" (s/repl-server (read-string (first args)))
-      "reduce" (let [[reduce-function map-function list-values & worker-ports] (vec (map read-string args))]
-                 (let [full-list (c/get-full-list 
-                                   map-function 
-                                   list-values 
+      "reduce" (let
+        [[reduce-function map-function list-values & worker-ports]
+        (vec (map read-string args))]
+                 (let [full-list (c/get-full-list
+                                   map-function
+                                   list-values
                                    worker-ports)]
                    (println "Full list is" full-list)
                    (let [reduced-value (reduce (eval reduce-function) full-list)]

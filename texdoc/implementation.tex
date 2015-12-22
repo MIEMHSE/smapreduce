@@ -1,0 +1,66 @@
+\documentclass[document.tex]{subfiles}
+\begin{document}
+\newpage
+
+\section{Реализация}
+\subsection{Исходный код}
+\begin{flushleft}
+  В листинге~1 представлен исходный код описания проекта, включающий в себя
+  описание проекта, зависимости и подключаемые пространства имен приложения.
+  \lstinputlisting[caption=project.clj]{project.clj}
+\end{flushleft}
+
+\begin{flushleft}
+  В листинге~2 описывается функция round-robin-map, распределяющая список
+  значений full-list поочередно по списку нод distribute-list.
+  \lstinputlisting[caption=src/smapreduce/utils.clj]{src/smapreduce/utils.clj}
+\end{flushleft}
+
+\begin{flushleft}
+  Листинг~3 описывает исходный код пространства имен smapreduce.core, который
+  позволяет запустить приложение с аргументами map или reduce.
+  \lstinputlisting[caption=src/smapreduce/core.clj]{src/smapreduce/core.clj}
+\end{flushleft}
+
+\begin{flushleft}
+  В листинге~4 показан исходный код пространства имен smapreduce.server,
+  позволяющий открыть сервер nREPL (встроенный интерпретатор Clojure, доступный
+  с использованием сетевого соединения).
+  \lstinputlisting[caption=src/smapreduce/server.clj]{src/smapreduce/server.clj}
+\end{flushleft}
+
+\begin{flushleft}
+  Листинг~5 описывает пространство имен smapreduce.client, реализующее функцию
+  map-client для соединения с сервером nREPL и функцию get-full-list,
+  конкатенирующую списки, возвращаемые с каждой из нод кластера функцией
+  map-client в результирующий список.
+  \lstinputlisting[caption=src/smapreduce/client.clj]{src/smapreduce/client.clj}
+\end{flushleft}
+
+\newpage
+\subsection{Запуск программы}
+\lstset{language=Bash}
+
+\begin{flushleft}
+  Программное обеспечение запускается следующим образом. \\
+  Для запуска двух нод на портах 1088 и 1099 нужно выполнить следующие
+  команды из корня проекта (до этого должен быть установлен Clojure и
+  пакетный менеджер Leiningen):
+  \begin{lstlisting}
+    # Map REPL instance on port 1088
+    $ lein run map 1088
+    # Map REPL instance on port 1099
+    $ lein run map 1099
+  \end{lstlisting}
+
+  Для сложения числа <<3>> с каждым значением списка и сверткой списка через
+  оператор сложения с использованием нод на портах 1088 и 1099 необходимо
+  выполнить следующую команду:
+  \begin{lstlisting}
+    # MapReduce client
+    $ lein run reduce "+" "#(+ 3 %)" "(1 2 3 4)" 1088 1099
+  \end{lstlisting}
+
+\end{flushleft}
+
+\end{document}

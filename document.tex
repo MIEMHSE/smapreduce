@@ -1,0 +1,66 @@
+\documentclass[a4paper,10pt]{article}
+
+% Необходимые пакеты
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian,english]{babel}
+\usepackage[pdftex,unicode]{hyperref}
+\usepackage[warn]{mathtext}
+\usepackage{amssymb,amsfonts,amsmath,cite,enumerate,float} % пакеты расширений
+\usepackage[dvips]{graphicx} % рисунки
+\usepackage{subfiles}
+\usepackage{mathtools}
+
+% Округление в большую сторону
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+% Меняем поля страницы
+\usepackage{geometry}
+\geometry{left=2cm} % левое поле
+\geometry{right=1.5cm} % правое поле
+\geometry{top=1cm} % верхнее поле
+\geometry{bottom=2cm} % нижнее поле
+
+\usepackage{color}
+\usepackage{listings}
+
+\usepackage[tableposition=top]{caption}
+\usepackage{subcaption}
+\DeclareCaptionLabelFormat{gostlisting}{Листинг #2}
+\DeclareCaptionLabelSeparator{gost}{~---~}
+\captionsetup{labelsep=gost}
+\captionsetup[listing]{labelformat=gostlisting}
+
+% Перечисления цифра.цифра
+\renewcommand{\theenumi}{\arabic{enumi}}
+\renewcommand{\labelenumi}{\arabic{enumi}}
+\renewcommand{\theenumii}{.\arabic{enumii}}
+\renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}}
+\renewcommand{\theenumiii}{.\arabic{enumiii}}
+\renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}}
+
+% Нумерация разделов
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+
+% \usepackage{indentfirst}
+
+\usepackage{grid-system}
+
+\usepackage{setspace}
+\setlength{\parindent}{1cm}
+
+\usepackage{epstopdf}
+
+% Документ
+\begin{document}
+\subfile{texdoc/titlelist}
+
+\subfile{texdoc/lstclojure}
+\lstset{language=clojure}
+
+\subfile{texdoc/input}
+\subfile{texdoc/implementation}
+\subfile{texdoc/conclusion}
+
+\end{document}
